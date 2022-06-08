@@ -6,8 +6,8 @@ public class Post {
 
     private final String author; // автор
     private final Instant creationDate = Instant.now(); // дата создания
-    private String description; // описание
-    private String photoUrl; // url-адрес фотографии
+    private final String description; // описание
+    private final String photoUrl; // url-адрес фотографии
 
     public Post(String author, String description, String photoUrl) {
         this.author = author;
@@ -27,15 +27,15 @@ public class Post {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
 
     public String getPhotoUrl() {
         return photoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
+//    public void setPhotoUrl(String photoUrl) {
+//        this.photoUrl = photoUrl;
+//    }
 }
