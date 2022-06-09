@@ -18,18 +18,6 @@ public class User {
     @Past
     private final LocalDate birthdate;
 
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public String getNickname() {
-//        return nickname;
-//    }
-//
-//    public LocalDate getBirthdate() {
-//        return birthdate;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -27,15 +27,7 @@ public class Post {
         return description;
     }
 
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-
     public String getPhotoUrl() {
         return photoUrl;
     }
-
-//    public void setPhotoUrl(String photoUrl) {
-//        this.photoUrl = photoUrl;
-//    }
 }
