@@ -1,6 +1,7 @@
 package ru.yandex.practicum.catsgram.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Email;

@@ -4,6 +4,8 @@ import java.time.Instant;
 
 public class Post {
 
+    private static int postCount = 0;
+    private final Integer id;
     private final String author; // автор
     private final Instant creationDate = Instant.now(); // дата создания
     private final String description; // описание
@@ -13,6 +15,14 @@ public class Post {
         this.author = author;
         this.description = description;
         this.photoUrl = photoUrl;
+        postCount++;
+        id = postCount;
+    }
+
+
+
+    public Integer getId() {
+        return id;
     }
 
     public String getAuthor() {
@@ -30,4 +40,9 @@ public class Post {
     public String getPhotoUrl() {
         return photoUrl;
     }
+
+//    @Override
+//    public int compareTo(Post o) {
+//        return this.getCreationDate().compareTo(o.getCreationDate());
+//    }
 }

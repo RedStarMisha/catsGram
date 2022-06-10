@@ -23,6 +23,11 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/{email}")
+    public User getUserByEmail(@PathVariable String email) {
+        return userService.findUserByEmail(email);
+    }
+
     @PostMapping
     public User postNewUser(@RequestBody User user) throws UserAlreadyExistException {
         String userEmail = user.getEmail();
