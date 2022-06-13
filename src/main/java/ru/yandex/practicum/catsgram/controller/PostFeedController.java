@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ru.yandex.practicum.catsgram.exceptions.IncorrectParameterException;
 import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.service.PostService;
 
@@ -19,8 +20,6 @@ import java.util.stream.Collectors;
 
 @RestController
 public class PostFeedController {
-
-
     PostService service;
 
     @Autowired
@@ -39,10 +38,31 @@ public class PostFeedController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Не формат Json", e);
         }
-        return friendsPost.getFriends().stream()
-                .map((email) -> service.findUserPostsByEmail(email, friendsPost.sort, friendsPost.size))
-                .flatMap(i -> i.stream())
-                .collect(Collectors.toList());
+        if (friendsPost.size < 1) {
+            throw new IncorrectParameterException("size");
+        }
+        if (friendsPost.sort == null) {
+            throw new IncorrectParameterException("sort");
+        }
+        if (friendsPost.friends == null) {
+            throw new IncorrectParameterException("friend");
+        }
+        switch (friendsPost.sort) {
+            case "asc":
+                return friendsPost.getFriends().stream()
+                        .map((email) -> service.findUserPostsByEmail(email, friendsPost.sort, friendsPost.size))
+                        .flatMap(i -> i.stream())
+                        .sorted(PostService.postComparator)
+                        .collect(Collectors.toList());
+            case "desc":
+                return friendsPost.getFriends().stream()
+                        .map((email) -> service.findUserPostsByEmail(email, friendsPost.sort, friendsPost.size))
+                        .flatMap(i -> i.stream())
+                        .sorted(PostService.postComparator.reversed())
+                        .collect(Collectors.toList());
+            default:
+                throw new IncorrectParameterException("sort");
+        }
     }
 
     @Getter

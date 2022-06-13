@@ -4,7 +4,6 @@ import java.time.Instant;
 
 public class Post {
 
-//    private static int postCount = 0;
     private Integer id;
     private final String author; // автор
     private final Instant creationDate = Instant.now(); // дата создания
@@ -15,8 +14,6 @@ public class Post {
         this.author = author;
         this.description = description;
         this.photoUrl = photoUrl;
-//        postCount++;
-//        id = postCount;
     }
 
     public void setId(int id) {

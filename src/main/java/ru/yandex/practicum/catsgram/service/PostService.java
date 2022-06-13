@@ -1,8 +1,5 @@
 package ru.yandex.practicum.catsgram.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.catsgram.exceptions.PostNotFoundException;
@@ -13,7 +10,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,7 +17,7 @@ public class PostService {
     private final List<Post> posts = new ArrayList<>();
     UserService userService;
     private int id = 1;
-    private final Comparator<Post> comparator = Comparator.comparing(Post::getCreationDate);
+    public final static Comparator<Post> postComparator = Comparator.comparing(Post::getCreationDate);
 
 
     @Autowired
@@ -37,9 +33,9 @@ public class PostService {
         }
         switch (sort) {
             case "asc":
-                return posts.stream().sorted(comparator).skip(from).limit(size).collect(Collectors.toList());
+                return posts.stream().sorted(postComparator).skip(from).limit(size).collect(Collectors.toList());
             case "desc":
-                return posts.stream().sorted(comparator.reversed()).skip(from).limit(size).collect(Collectors.toList());
+                return posts.stream().sorted(postComparator.reversed()).skip(from).limit(size).collect(Collectors.toList());
             default:
                 return posts;
         }
@@ -65,10 +61,10 @@ public class PostService {
         switch (sort) {
             case "asc":
                 return posts.stream().filter(post -> post.getAuthor().equals(email))
-                        .sorted(comparator).limit(size).collect(Collectors.toList());
+                        .sorted(postComparator).limit(size).collect(Collectors.toList());
             case "desc":
                 return posts.stream().filter(post -> post.getAuthor().equals(email))
-                        .sorted(comparator.reversed()).limit(size).collect(Collectors.toList());
+                        .sorted(postComparator.reversed()).limit(size).collect(Collectors.toList());
             default:
                 return posts;
         }
