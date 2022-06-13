@@ -28,8 +28,8 @@ public class PostController {
 
     @GetMapping("/posts")
     public List<Post> findAll(@RequestParam(required = false) String sort,
-                              @RequestParam(defaultValue = "0") int size,
-                              @RequestParam(defaultValue = "0") int page) {
+                              @RequestParam(required = false, defaultValue = "0") int size,
+                              @RequestParam(required = false, defaultValue = "0") int page) {
         //log.debug("Текущее количество постов: {}", posts.size());
         return postService.findAll(sort, size, (page - 1) * size);
     }
@@ -43,4 +43,5 @@ public class PostController {
     public Post create(@RequestBody Post post) {
         return postService.create(post);
     }
+
 }
