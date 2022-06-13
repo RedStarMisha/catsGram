@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.catsgram.exceptions.IncorrectParameterException;
 import ru.yandex.practicum.catsgram.exceptions.PostNotFoundException;
 import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.service.PostService;
@@ -31,6 +32,15 @@ public class PostController {
                               @RequestParam(required = false, defaultValue = "0") int size,
                               @RequestParam(required = false, defaultValue = "0") int page) {
         //log.debug("Текущее количество постов: {}", posts.size());
+        if (sort == null) {
+            throw new IncorrectParameterException("sort");
+        }
+        if (size < 1) {
+            throw new IncorrectParameterException("size");
+        }
+        if (page < 1) {
+            throw new IncorrectParameterException("page");
+        }
         return postService.findAll(sort, size, (page - 1) * size);
     }
 

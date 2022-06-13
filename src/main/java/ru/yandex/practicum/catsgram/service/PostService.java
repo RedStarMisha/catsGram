@@ -24,13 +24,7 @@ public class PostService {
     public PostService(UserService userService) {
         this.userService = userService;
     }
-    public List<Post> findAll(@Nullable String sort, int size, int from) {
-        if (sort == null) {
-            return posts;
-        }
-        if (size < 0 || from < 0) {
-            throw new IllegalArgumentException();
-        }
+    public List<Post> findAll(String sort, int size, int from) {
         switch (sort) {
             case "asc":
                 return posts.stream().sorted(postComparator).skip(from).limit(size).collect(Collectors.toList());
