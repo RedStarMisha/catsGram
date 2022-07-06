@@ -3,6 +3,6 @@ package ru.yandex.practicum.catsgram.controller;
 import lombok.Data;
 
 @Data
-public class ErrorResponse {
+public class ExceptionResponse {
     private final String error;
 }
