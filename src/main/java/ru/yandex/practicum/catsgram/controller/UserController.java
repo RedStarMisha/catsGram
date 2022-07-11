@@ -7,6 +7,7 @@ import ru.yandex.practicum.catsgram.model.User;
 import ru.yandex.practicum.catsgram.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -23,20 +24,20 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/{email}")
-    public User getUserByEmail(@PathVariable String email) {
-        return userService.findUserByEmail(email);
+    @GetMapping("/{login}")
+    public Optional<User> getUser(@PathVariable String login){
+        return userService.findUserById(login);
     }
 
     @PostMapping
     public User postNewUser(@RequestBody User user) throws UserAlreadyExistException {
-        String userEmail = user.getEmail();
+        String userEmail = user.getId();
         return userService.postUser(userEmail, user);
     }
 
     @PutMapping
     public User putNewUser(@RequestBody User user) {
-        String userEmail = user.getEmail();
+        String userEmail = user.getId();
         return userService.putUser(userEmail, user);
     }
 

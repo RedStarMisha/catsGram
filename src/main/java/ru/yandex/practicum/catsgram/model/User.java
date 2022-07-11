@@ -1,8 +1,6 @@
 package ru.yandex.practicum.catsgram.model;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -11,13 +9,20 @@ import java.time.LocalDate;
 
 @Data
 public class User {
-    @Email
-    private final String email;
     @NotBlank
-    private final String nickname;
+    private String id;
+
     @NotBlank
-    @Past
-    private final LocalDate birthdate;
+    private String nickname;
+
+    @NotBlank
+    private String userName;
+
+    public User(String id, String nickname, String userName) {
+        this.id = id;
+        this.nickname = nickname;
+        this.userName = userName;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -26,11 +31,11 @@ public class User {
 
         User user = (User) o;
 
-        return email.equals(user.email);
+        return id.equals(user.id);
     }
 
     @Override
     public int hashCode() {
-        return email.hashCode();
+        return id.hashCode();
     }
 }

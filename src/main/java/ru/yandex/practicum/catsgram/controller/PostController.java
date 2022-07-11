@@ -12,6 +12,7 @@ import ru.yandex.practicum.catsgram.service.PostService;
 import javax.swing.text.html.Option;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,14 +45,26 @@ public class PostController {
         return postService.findAll(sort, size, (page - 1) * size);
     }
 
+    @GetMapping("/posts/follower/{userId}")
+    public List<Post> getFollowerPosts (
+            @PathVariable(name = "userId") String userId,
+            @RequestParam(name = "size", required = false, defaultValue = "10") Integer size){
+        return postService.findFollowerPosts(userId, size);
+    }
+
     @GetMapping("/post/{postId}")
     public Post findPost(@PathVariable("postId") Integer postId) throws PostNotFoundException {
         return postService.findPostById(postId);
     }
 
-    @PostMapping(value = "/post")
-    public Post create(@RequestBody Post post) {
-        return postService.create(post);
-    }
+//    @GetMapping("/posts")
+//    public Collection<Post> findAll(@RequestParam String userId) {
+//        return postService.findPostsByUser(userId);
+//    }
+
+//    @PostMapping(value = "/post")
+//    public Post create(@RequestBody Post post) {
+//        return postService.create(post);
+//    }
 
 }

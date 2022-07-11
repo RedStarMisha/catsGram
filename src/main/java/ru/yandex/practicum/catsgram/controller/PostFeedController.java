@@ -50,13 +50,13 @@ public class PostFeedController {
         switch (friendsPost.sort) {
             case "asc":
                 return friendsPost.getFriends().stream()
-                        .map((email) -> service.findUserPostsByEmail(email, friendsPost.sort, friendsPost.size))
+                        .map((email) -> service.findPostsByUser(email, friendsPost.size, friendsPost.sort))
                         .flatMap(i -> i.stream())
                         .sorted(PostService.postComparator)
                         .collect(Collectors.toList());
             case "desc":
                 return friendsPost.getFriends().stream()
-                        .map((email) -> service.findUserPostsByEmail(email, friendsPost.sort, friendsPost.size))
+                        .map((email) -> service.findPostsByUser(email, friendsPost.size, friendsPost.sort))
                         .flatMap(i -> i.stream())
                         .sorted(PostService.postComparator.reversed())
                         .collect(Collectors.toList());
